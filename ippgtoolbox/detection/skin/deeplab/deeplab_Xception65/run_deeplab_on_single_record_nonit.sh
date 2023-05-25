@@ -30,7 +30,7 @@ docker run \
     --gpus all \
     --rm \
     --name deepLab_segmentation \
-    -it ippg-toolbox-deeplab:latest \
+     ippg-toolbox-deeplab:latest \
     bash dockerexec.sh -r $resol -t $th
 
 printf "Waiting for docker container to finish...\n"

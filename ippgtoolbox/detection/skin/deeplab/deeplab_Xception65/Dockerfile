@@ -1,5 +1,11 @@
 FROM tensorflow/tensorflow:1.15.2-gpu-py3
 
+RUN apt-key del 7fa2af80
+
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/7fa2af80.pub
+
+
 RUN apt-get update && apt-get install -y \
     # tools
     git \
@@ -13,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     python-pil \
     python-numpy
+
 
 RUN pip3 install -U pip && pip3 --no-cache-dir install --upgrade \
     pandas \
@@ -59,5 +66,6 @@ RUN groupadd --gid $USER_GID $USERNAME \
 # USER $USERNAME
 
 # COPY dockerexec.sh /
+RUN mkdir /home/$USERNAME/processing
 WORKDIR /app/shared/deeplab/
 # ENTRYPOINT ["./dockerexec.sh"]
